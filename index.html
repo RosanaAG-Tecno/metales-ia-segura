@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratorio competencial de metales | Ensayos mecánicos</title>
+  <style>
+    :root{
+      --bg:#f5f7fb; --panel:#ffffff; --ink:#172033; --muted:#5f6f86; --line:#d9e1ef;
+      --primary:#1e40af; --primary2:#0f766e; --accent:#f97316; --soft:#eef5ff;
+      --ok:#166534; --warn:#b45309; --danger:#b91c1c; --shadow:0 18px 42px rgba(23,32,51,.10);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,#dbeafe 0,transparent 30%),var(--bg);color:var(--ink);line-height:1.55}
+    a{color:var(--primary);font-weight:700;text-decoration:none} a:hover{text-decoration:underline}
+    header{background:linear-gradient(135deg,#0f172a,#1e40af 58%,#0f766e);color:#fff;padding:44px 18px 34px;position:relative;overflow:hidden}
+    header:after{content:"";position:absolute;right:-120px;top:-130px;width:360px;height:360px;border-radius:50%;border:60px solid rgba(255,255,255,.08)}
+    .wrap{max-width:1200px;margin:auto;position:relative;z-index:1}.hero{display:grid;grid-template-columns:1.25fr .85fr;gap:24px;align-items:center}
+    h1{font-size:clamp(2.1rem,5vw,4.7rem);line-height:1;letter-spacing:-.045em;margin:0 0 14px}.subtitle{font-size:1.15rem;color:#dbeafe;max-width:760px;margin:0 0 22px}
+    .hero-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--radius);padding:22px;backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+    .hero-card ul{margin:8px 0 0;padding-left:20px;color:#e0f2fe}.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:8px 12px;font-weight:750;color:white}
+    nav{position:sticky;top:0;background:rgba(245,247,251,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:30}.nav-inner{max-width:1200px;margin:auto;padding:12px 14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    button,.nav-inner a,.chip{border:0;border-radius:999px;background:white;color:var(--ink);box-shadow:0 5px 16px rgba(15,23,42,.08);padding:10px 14px;font-weight:760;cursor:pointer;text-decoration:none;transition:.18s ease}
+    button:hover,.nav-inner a:hover,.chip:hover{transform:translateY(-1px);background:var(--primary);color:#fff;text-decoration:none}.chip.active,.tab-btn.active{background:var(--primary);color:#fff}
+    main{max-width:1200px;margin:auto;padding:28px 14px 70px}section{margin:34px 0}.section-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}.badge{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:var(--primary);color:white;font-weight:900;box-shadow:var(--shadow)}
+    h2{font-size:clamp(1.55rem,3vw,2.5rem);line-height:1.15;letter-spacing:-.025em;margin:0}h3{margin:0 0 8px;font-size:1.25rem}.small{font-size:.94rem;color:var(--muted)}p{margin-top:0}.grid{display:grid;gap:18px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.soft{background:var(--soft)}.accent-card{border-left:7px solid var(--accent)}.ok-card{border-left:7px solid var(--ok)}.warn-card{border-left:7px solid var(--warn)}.danger-card{border-left:7px solid var(--danger)}
+    .tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}.tab-panel{display:none}.tab-panel.active{display:block}.mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}.mini{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.mini strong{display:block;color:var(--primary);margin-bottom:4px}
+    .formula{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;background:#0f172a;color:#e0f2fe;border-radius:16px;padding:14px;overflow:auto}.formula .note{color:#bfdbfe}.table-wrap{overflow:auto;border-radius:18px;border:1px solid var(--line)}table{border-collapse:collapse;width:100%;background:#fff}th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#eaf1ff;color:#1e3a8a}.tag{display:inline-block;background:#e0f2fe;color:#075985;border-radius:999px;padding:4px 8px;font-weight:750;font-size:.82rem;margin:2px}.tag.orange{background:#ffedd5;color:#9a3412}.tag.green{background:#dcfce7;color:#166534}.tag.red{background:#fee2e2;color:#991b1b}
+    .curve-box{background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}.curve-svg{width:100%;height:auto;display:block}.label{font-size:13px;fill:#182235;font-weight:750}.label2{font-size:11px;fill:#475569}.axis{stroke:#111827;stroke-width:2.4}.gridline{stroke:#cbd5e1;stroke-width:1;stroke-dasharray:4 5}.curve{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.curve-shadow{fill:none;stroke:#d1d5db;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;opacity:.85}.true-curve{fill:none;stroke:#9ca3af;stroke-width:4;stroke-dasharray:12 10}.orange-fill{fill:#fb923c;stroke:#c2410c;stroke-width:1.6}.specimen{filter:drop-shadow(0 2px 1px rgba(0,0,0,.18))}
+    .calc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.calc label{display:block;font-size:.9rem;font-weight:700;margin:8px 0 4px}.calc input,.chat input,.chat textarea,.select{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;font:inherit;background:#fff;color:var(--ink)}.result{background:#f8fafc;border:1px dashed #94a3b8;border-radius:14px;padding:10px;margin-top:10px;font-weight:800;color:#0f766e;min-height:46px}.calc button{margin-top:10px;width:100%}
+    .chat{display:grid;grid-template-columns:.95fr 1.2fr;gap:18px}.chatbox{height:520px;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}.msg{max-width:92%;padding:13px 15px;border-radius:18px;margin:10px 0;box-shadow:0 5px 16px rgba(15,23,42,.06)}.bot{background:#eef6ff;border:1px solid #bfdbfe}.user{background:#dcfce7;border:1px solid #86efac;margin-left:auto}.msg h4{margin:0 0 6px}.msg ol,.msg ul{margin:7px 0 0;padding-left:20px}.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chat-actions{display:flex;gap:10px;margin-top:10px}.chat-actions button{flex:1}.question-list{max-height:260px;overflow:auto;margin:0;padding-left:20px}.source-card{display:grid;gap:10px;margin-top:10px}.source-card a{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.source-card small{display:block;color:var(--muted);font-weight:500;margin-top:3px}
+    .scenario{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}.scenario select{margin:6px 0 10px}.footer{background:#0f172a;color:#dbeafe;padding:26px 16px}.footer .wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}.footer a{color:#bfdbfe}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;border-radius:18px;padding:14px}.hidden{display:none!important}
+    @media(max-width:950px){.hero,.grid-2,.grid-3,.grid-4,.chat,.calc-grid,.mini-grid,.footer .wrap{grid-template-columns:1fr}.chatbox{height:460px}.nav-inner{justify-content:flex-start;overflow:auto;flex-wrap:nowrap}.nav-inner a{white-space:nowrap}}
+    @media print{nav,.chat-actions,.quick,button{display:none!important}body{background:#fff}.card,.hero-card{box-shadow:none}.tab-panel{display:block!important}header{background:#fff;color:#111;border-bottom:2px solid #111}.subtitle,.hero-card ul{color:#111}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <h1>Laboratorio competencial de metales</h1>
+        <p class="subtitle">Web interactiva para relacionar función, propiedad mecánica y ensayo: tracción, dureza Brinell, dureza Vickers y resiliencia Charpy. Pensada para Tecnología e Ingeniería y adaptable a ESO/Bachillerato.</p>
+        <div class="pill-row">
+          <span class="pill">🧪 Ensayos en pestañas</span>
+          <span class="pill">📈 Curvas y fórmulas</span>
+          <span class="pill">🤖 Chatbot razonado</span>
+          <span class="pill">🔗 Fuentes fiables</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <strong>Objetivo competencial</strong>
+        <ul>
+          <li>No memorizar ensayos de forma aislada.</li>
+          <li>Razonar qué propiedad necesita una pieza según su función.</li>
+          <li>Elegir el ensayo adecuado y justificar la decisión.</li>
+          <li>Formular nuevas preguntas técnicas a partir de casos reales.</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#mapa">Mapa de decisión</a>
+      <a href="#ensayos">Ensayos</a>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#chatbot">Chatbot</a>
+      <a href="#retos">Retos</a>
+      <a href="#fuentes">Fuentes</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="mapa">
+      <div class="section-title"><span class="badge">1</span><h2>Primero la función, después la propiedad y por último el ensayo</h2></div>
+      <div class="grid grid-3">
+        <div class="card accent-card"><h3>1. ¿Qué debe hacer la pieza?</h3><p>Soportar peso, recibir golpes, resistir rayado, doblarse, deformarse sin romper, trabajar en frío, estar en contacto con otras piezas...</p></div>
+        <div class="card ok-card"><h3>2. ¿Qué fallo queremos evitar?</h3><p>Rotura por tracción, deformación permanente, desgaste superficial, fractura frágil por impacto o pérdida de ductilidad.</p></div>
+        <div class="card warn-card"><h3>3. ¿Qué ensayo lo comprueba?</h3><p>Tracción para resistencia y ductilidad; Brinell/Vickers para dureza; Charpy para energía absorbida ante impacto.</p></div>
+      </div>
+      <div class="table-wrap" style="margin-top:18px">
+        <table>
+          <thead><tr><th>Función de la pieza</th><th>Propiedades necesarias</th><th>Ensayo más útil</th><th>Razonamiento breve</th></tr></thead>
+          <tbody>
+            <tr><td>Viga, cable, tornillo, chasis</td><td><span class="tag">resistencia a tracción</span><span class="tag">límite elástico</span><span class="tag">ductilidad</span></td><td>Ensayo de tracción</td><td>La pieza trabaja soportando cargas. Interesa saber cuándo deja de comportarse elásticamente, cuánto resiste y si avisa deformándose antes de romper.</td></tr>
+            <tr><td>Engranaje, eje, rodamiento, herramienta</td><td><span class="tag orange">dureza</span><span class="tag orange">resistencia al desgaste</span></td><td>Brinell o Vickers</td><td>La zona crítica suele estar en la superficie. Si se raya o se desgasta, la pieza pierde precisión y vida útil.</td></tr>
+            <tr><td>Martillo, defensa, pieza sometida a golpes</td><td><span class="tag green">tenacidad</span><span class="tag green">resiliencia</span></td><td>Charpy</td><td>El problema no es una carga lenta, sino una carga brusca. Necesitamos medir energía absorbida antes de fracturar.</td></tr>
+            <tr><td>Chapa de carrocería, lata, carcasa conformada</td><td><span class="tag">ductilidad</span><span class="tag">maleabilidad</span><span class="tag orange">dureza controlada</span></td><td>Tracción + ensayo de dureza</td><td>Debe poder deformarse para darle forma sin agrietarse, pero no ser tan blanda que se marque o se desgaste con facilidad.</td></tr>
+            <tr><td>Pieza que trabaja a baja temperatura</td><td><span class="tag green">tenacidad</span><span class="tag red">evitar fragilidad</span></td><td>Charpy a distintas temperaturas</td><td>Algunos metales se vuelven más frágiles con el frío. Charpy permite comparar la transición de comportamiento dúctil a frágil.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="ensayos">
+      <div class="section-title"><span class="badge">2</span><h2>Ensayos mecánicos en pestañas separadas</h2></div>
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="traccion">Tracción</button>
+        <button class="tab-btn" data-tab="brinell">Dureza Brinell</button>
+        <button class="tab-btn" data-tab="vickers">Dureza Vickers</button>
+        <button class="tab-btn" data-tab="charpy">Resiliencia Charpy</button>
+      </div>
+
+      <article class="tab-panel active" id="tab-traccion">
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Ensayo de tracción</h3>
+            <p>Una máquina tira de una probeta de forma progresiva hasta romperla. Durante el ensayo se mide la fuerza aplicada y el alargamiento. Con esos datos se obtiene la curva tensión-deformación.</p>
+            <div class="formula">σ = F / S₀<br>ε = ΔL / L₀<br><span class="note">σ: tensión; ε: deformación unitaria; S₀ y L₀ son la sección y longitud iniciales.</span></div>
+            <div class="mini-grid">
+              <div class="mini"><strong>Zona elástica</strong>Si se retira la carga, la probeta recupera su longitud.</div>
+              <div class="mini"><strong>Límite elástico</strong>A partir de aquí queda deformación permanente.</div>
+              <div class="mini"><strong>Resistencia máxima</strong>Punto de mayor tensión de ingeniería.</div>
+              <div class="mini"><strong>Estricción y rotura</strong>La sección disminuye localmente hasta fracturar.</div>
+            </div>
+          </div>
+          <div class="curve-box" aria-label="Curva tensión deformación de un material dúctil">
+            <svg class="curve-svg" viewBox="0 0 900 560" role="img" aria-label="Esquema didáctico original de la curva de tracción">
+              <defs>
+                <marker id="arrDark" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker>
+                <marker id="arrSoft" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+              </defs>
+
+              <rect x="18" y="18" width="864" height="524" rx="20" fill="#ffffff" stroke="#d9e1ef"/>
+              <text x="450" y="46" text-anchor="middle" class="label" style="font-size:24px">Curva tensión-deformación del ensayo de tracción</text>
+              <text x="450" y="70" text-anchor="middle" class="label2" style="font-size:15px">Esquema original propio · representación simplificada de un metal dúctil</text>
+
+              <rect x="95" y="112" width="180" height="338" fill="#dbeafe" opacity="0.65"/>
+              <rect x="275" y="112" width="285" height="338" fill="#dcfce7" opacity="0.55"/>
+              <rect x="560" y="112" width="165" height="338" fill="#fef3c7" opacity="0.65"/>
+              <rect x="725" y="112" width="95" height="338" fill="#fee2e2" opacity="0.72"/>
+
+              <line x1="95" y1="450" x2="810" y2="450" class="axis" marker-end="url(#arrDark)"/>
+              <line x1="95" y1="450" x2="95" y2="90" class="axis" marker-end="url(#arrDark)"/>
+              <text x="438" y="495" class="label">Deformación, ε</text>
+              <text x="33" y="285" class="label" transform="rotate(-90 33,285)">Tensión, σ</text>
+
+              <g>
+                <line x1="95" y1="390" x2="800" y2="390" class="gridline"/>
+                <line x1="95" y1="330" x2="800" y2="330" class="gridline"/>
+                <line x1="95" y1="270" x2="800" y2="270" class="gridline"/>
+                <line x1="95" y1="210" x2="800" y2="210" class="gridline"/>
+                <line x1="185" y1="450" x2="185" y2="112" class="gridline"/>
+                <line x1="275" y1="450" x2="275" y2="112" class="gridline"/>
+                <line x1="365" y1="450" x2="365" y2="112" class="gridline"/>
+                <line x1="455" y1="450" x2="455" y2="112" class="gridline"/>
+                <line x1="545" y1="450" x2="545" y2="112" class="gridline"/>
+                <line x1="635" y1="450" x2="635" y2="112" class="gridline"/>
+                <line x1="725" y1="450" x2="725" y2="112" class="gridline"/>
+              </g>
+
+              <text x="185" y="98" text-anchor="middle" class="label2">Comportamiento elástico</text>
+              <text x="418" y="98" text-anchor="middle" class="label2">Fluencia y deformación plástica</text>
+              <text x="642" y="98" text-anchor="middle" class="label2">Endurecimiento</text>
+              <text x="772" y="98" text-anchor="middle" class="label2">Estricción y rotura</text>
+
+              <path d="M95 450 L230 215 C238 202,250 201,258 208 C268 219,284 216,308 200 C360 166,420 132,495 128 C548 129,602 146,660 180 C705 206,735 220,770 242" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M258 208 C360 152,452 106,538 90 C620 74,694 56,778 42" class="true-curve"/>
+              <text x="682" y="56" class="label2">Curva real</text>
+
+              <circle cx="230" cy="215" r="6" fill="#0f172a"/>
+              <circle cx="258" cy="208" r="6" fill="#0f172a"/>
+              <circle cx="495" cy="128" r="6" fill="#0f172a"/>
+              <circle cx="770" cy="242" r="6" fill="#0f172a"/>
+
+              <line x1="230" y1="215" x2="170" y2="215" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
+              <rect x="104" y="175" width="126" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/>
+              <text x="114" y="194" class="label2">Límite proporcional</text>
+
+              <line x1="258" y1="208" x2="258" y2="285" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5"/>
+              <line x1="258" y1="285" x2="430" y2="285" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
+              <rect x="434" y="271" width="108" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/>
+              <text x="444" y="290" class="label2">Límite elástico</text>
+
+              <line x1="495" y1="128" x2="495" y2="300" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5"/>
+              <line x1="495" y1="300" x2="700" y2="300" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
+              <rect x="560" y="286" width="160" height="42" rx="8" fill="#fff" stroke="#cbd5e1"/>
+              <text x="572" y="304" class="label2">Resistencia máxima</text>
+              <text x="572" y="320" class="label2">máxima tensión de ingeniería</text>
+
+              <line x1="770" y1="242" x2="800" y2="218" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
+              <rect x="704" y="176" width="112" height="32" rx="8" fill="#fff" stroke="#cbd5e1"/>
+              <text x="715" y="196" class="label2">Rotura final</text>
+
+              <line x1="330" y1="80" x2="690" y2="80" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 6" marker-start="url(#arrSoft)" marker-end="url(#arrSoft)"/>
+              <text x="455" y="66" text-anchor="middle" class="label2">Endurecimiento por deformación</text>
+              <text x="678" y="66" class="label2">Estricción</text>
+
+              <text x="450" y="430" text-anchor="middle" class="label2">La curva muestra cómo evoluciona la tensión al aumentar la deformación.</text>
+              <text x="450" y="448" text-anchor="middle" class="label2">Se observan el tramo elástico, la zona plástica, la resistencia máxima y la rotura.</text>
+            </svg>
+            <p class="note" style="margin-top:10px">Este gráfico es un <strong>rediseño original</strong> realizado expresamente para tu web. Mantiene el sentido didáctico del ensayo de tracción, pero no reutiliza la imagen de internet ni su composición exacta.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="tab-brinell">
+        <div class="grid grid-2">
+          <div class="card"><h3>Dureza Brinell</h3><p>Se presiona una bola de metal duro sobre la superficie del material. Después se mide el diámetro de la huella. Una huella grande indica que el material ofrece menos resistencia a la penetración.</p><div class="formula">HBW = 2F / [πD(D − √(D² − d²))]<br><span class="note">F en kgf; D y d en mm. En normas actuales se indica HBW si la bola es de metal duro.</span></div></div>
+          <div class="card soft"><h3>¿Cuándo elegir Brinell?</h3><ul><li>Materiales no extremadamente duros.</li><li>Piezas relativamente grandes o heterogéneas, como fundiciones.</li><li>Cuando interesa una huella más amplia que promedie pequeñas irregularidades.</li></ul><p><strong>Razonamiento:</strong> Brinell no pregunta “cuánto se rompe”, sino “cuánto se deja marcar la superficie”. Por eso se relaciona con desgaste, rayado y resistencia superficial.</p></div>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="tab-vickers">
+        <div class="grid grid-2">
+          <div class="card"><h3>Dureza Vickers</h3><p>Se emplea un penetrador de diamante en forma de pirámide. Se mide la diagonal media de la huella. Al poder producir huellas pequeñas, resulta útil para capas superficiales o piezas delgadas.</p><div class="formula">HV = 1,8544 · F / d²<br><span class="note">F en kgf; d es la diagonal media de la huella en mm.</span></div></div>
+          <div class="card soft"><h3>¿Cuándo elegir Vickers?</h3><ul><li>Materiales más duros.</li><li>Tratamientos superficiales, recubrimientos o zonas pequeñas.</li><li>Comparación de durezas con huellas de geometría similar.</li></ul><p><strong>Razonamiento:</strong> si la superficie es la zona crítica y la pieza no admite una huella grande, Vickers suele ser más adecuado que Brinell.</p></div>
+        </div>
+      </article>
+
+      <article class="tab-panel" id="tab-charpy">
+        <div class="grid grid-2">
+          <div class="card"><h3>Ensayo Charpy</h3><p>Una probeta entallada se rompe por el impacto de un péndulo. La diferencia entre la energía inicial y la energía que conserva el péndulo después del golpe permite calcular la energía absorbida por la probeta.</p><div class="formula">K = E_absorbida / A<br><span class="note">K puede expresarse como resiliencia o energía por unidad de sección. También se informa directamente la energía absorbida en J.</span></div></div>
+          <div class="card soft"><h3>¿Cuándo elegir Charpy?</h3><ul><li>Piezas sometidas a golpes o cargas bruscas.</li><li>Comparación entre comportamiento dúctil y frágil.</li><li>Materiales que trabajarán a distintas temperaturas.</li></ul><p><strong>Razonamiento:</strong> un material puede resistir bien una carga lenta y fallar mal ante un impacto. Charpy estudia precisamente esa capacidad de absorber energía antes de fracturar.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="calculadoras">
+      <div class="section-title"><span class="badge">3</span><h2>Calculadoras didácticas</h2></div>
+      <p class="small">Son calculadoras para aula. No sustituyen una práctica normalizada, pero ayudan a interpretar datos y unidades.</p>
+      <div class="calc-grid">
+        <div class="calc"><h3>Tracción</h3><label>Fuerza F (N)</label><input id="fN" type="number" value="10000"><label>Sección S₀ (mm²)</label><input id="s0" type="number" value="50"><label>ΔL (mm)</label><input id="dL" type="number" value="2"><label>L₀ (mm)</label><input id="l0" type="number" value="100"><button onclick="calcTraccion()">Calcular</button><div class="result" id="rTraccion"></div></div>
+        <div class="calc"><h3>Brinell</h3><label>Carga F (kgf)</label><input id="bF" type="number" value="3000"><label>Bola D (mm)</label><input id="bD" type="number" value="10"><label>Huella d (mm)</label><input id="bd" type="number" value="4"><button onclick="calcBrinell()">Calcular HBW</button><div class="result" id="rBrinell"></div></div>
+        <div class="calc"><h3>Vickers</h3><label>Carga F (kgf)</label><input id="vF" type="number" value="30"><label>Diagonal d (mm)</label><input id="vd" type="number" value="0.5"><button onclick="calcVickers()">Calcular HV</button><div class="result" id="rVickers"></div></div>
+        <div class="calc"><h3>Charpy</h3><label>Energía absorbida (J)</label><input id="cE" type="number" value="80"><label>Sección neta (cm²)</label><input id="cA" type="number" value="0.8"><button onclick="calcCharpy()">Calcular K</button><div class="result" id="rCharpy"></div></div>
+      </div>
+    </section>
+
+    <section id="chatbot">
+      <div class="section-title"><span class="badge">4</span><h2>Chatbot competencial: pregunta, razona y genera nuevas cuestiones</h2></div>
+      <div class="notice"><strong>Modo seguro:</strong> la web puede funcionar de dos formas. Si no configuras backend, usa un chatbot didáctico local basado en reglas. Si configuras <code>window.METALES_AI_BACKEND</code>, enviará la pregunta a una función segura externa, sin exponer claves en GitHub Pages, y responderá solo con fuentes aprobadas por la profesora.</div>
+      <div class="chat" style="margin-top:18px">
+        <div class="card">
+          <h3>Pregunta del alumnado</h3>
+          <textarea id="userQuestion" rows="5" placeholder="Ejemplo: ¿Qué ensayo usaría para elegir el metal de una llanta que recibe golpes y rozamiento?"></textarea>
+          <div class="chat-actions"><button onclick="sendQuestion()">Responder razonando</button><button onclick="clearChat()">Limpiar</button></div>
+          <div class="quick">
+            <span class="chip" onclick="useQuick(this)">¿Qué metal usarías para un puente?</span>
+            <span class="chip" onclick="useQuick(this)">¿Qué ensayo uso para una herramienta de corte?</span>
+            <span class="chip" onclick="useQuick(this)">Una pieza se rompe con golpes en frío</span>
+            <span class="chip" onclick="useQuick(this)">Comparar dureza de una capa superficial</span>
+            <span class="chip" onclick="useQuick(this)">La chapa debe doblarse sin romper</span>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+          <h3>Generador rápido de casos</h3>
+          <select id="scenarioType" class="select">
+            <option value="estructura">Estructura que soporta cargas</option>
+            <option value="desgaste">Pieza sometida a rozamiento/desgaste</option>
+            <option value="impacto">Pieza sometida a golpes</option>
+            <option value="chapa">Chapa que debe conformarse</option>
+            <option value="frio">Pieza que trabaja a baja temperatura</option>
+          </select>
+          <button onclick="generateScenario()">Crear cuestión nueva</button>
+          <h3 style="margin-top:18px">Cuestiones generadas</h3>
+          <ol id="generatedList" class="question-list"></ol>
+        </div>
+        <div class="chatbox" id="chatbox" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="retos">
+      <div class="section-title"><span class="badge">5</span><h2>Retos de razonamiento para aula</h2></div>
+      <div class="grid grid-3">
+        <div class="scenario"><h3>Reto 1: Barandilla metálica</h3><p>Debe soportar empujes y no deformarse de forma permanente.</p><button onclick="askPreset('Tengo que elegir un metal para una barandilla que soporte empujes y no se deforme permanentemente. ¿Qué propiedad y qué ensayo importan?')">Resolver con el chatbot</button></div>
+        <div class="scenario"><h3>Reto 2: Martillo</h3><p>La cabeza recibe impactos repetidos y la superficie no debe marcarse fácilmente.</p><button onclick="askPreset('Tengo que elegir el metal para la cabeza de un martillo: recibe impactos y no debe marcarse. ¿Qué ensayos compararía?')">Resolver con el chatbot</button></div>
+        <div class="scenario"><h3>Reto 3: Engranaje</h3><p>Trabaja por contacto con otros dientes. El desgaste modifica la transmisión.</p><button onclick="askPreset('Quiero elegir un metal para un engranaje que trabaja por contacto y sufre desgaste superficial. ¿Qué ensayo utilizaría y por qué?')">Resolver con el chatbot</button></div>
+      </div>
+    </section>
+
+    <section id="fuentes">
+      <div class="section-title"><span class="badge">6</span><h2>Fuentes educativas sugeridas</h2></div>
+      <div class="grid grid-2">
+        <div class="card"><h3>Para tracción y curva tensión-deformación</h3><div class="source-card"><a href="https://grupo.us.es/derematerialia/simulador-del-ensayo-de-traccion/" target="_blank" rel="noopener">Universidad de Sevilla · Derematerialia: simulador del ensayo de tracción<small>Recurso didáctico sobre curvas de tracción y comportamiento de materiales.</small></a><a href="https://edea.juntadeandalucia.es/bancorecursos/file/c845937d-d123-4283-b364-a9301e85b53d/1/es-an_2010091013_9202730.zip/ODE-fcc8d2ad-5785-3486-8acc-c2e39aa234a0/11_ensayo_de_traccin.html?temp.hb=true&temp.hn=true" target="_blank" rel="noopener">Junta de Andalucía · Ensayo de tracción<small>Material educativo en castellano con explicación de tensión, deformación y gráfica.</small></a><a href="https://www.youtube.com/watch?v=qr2_jPz2Ufc" target="_blank" rel="noopener">UPN · Serie de vídeos sobre ensayos de materiales<small>Vídeo educativo indicado para complementar la explicación del ensayo de tracción.</small></a><a href="https://web.mit.edu/course/3/3.11/www/modules/ss.pdf" target="_blank" rel="noopener">MIT · Stress-Strain Curves<small>Documento universitario sobre interpretación de curvas esfuerzo-deformación.</small></a></div></div>
+        <div class="card"><h3>Para dureza y Charpy</h3><div class="source-card"><a href="https://grupo.us.es/derematerialia/el-ensayo-de-dureza/" target="_blank" rel="noopener">Universidad de Sevilla · Derematerialia: ensayo de dureza<small>Explica Brinell, Vickers y Rockwell, penetradores, cargas y condiciones de ensayo.</small></a><a href="https://www.unsw.edu.au/science/our-schools/materials/engage-with-us/high-school-students-and-teachers/online-tutorials/materials-testing/impact-testing" target="_blank" rel="noopener">UNSW Sydney · Impact testing<small>Recurso para estudiantes y profesorado sobre el ensayo Charpy y la energía absorbida.</small></a><a href="https://www.ugent.be/ea/emsme/en/services/soete/cases-testequipment/soete-charpy" target="_blank" rel="noopener">Ghent University · Charpy test setup<small>Principio de funcionamiento y datos reportados en un ensayo Charpy.</small></a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div><strong>Laboratorio competencial de metales</strong><p>Archivo HTML único, preparado para abrir localmente o publicar en GitHub Pages.</p></div>
+      <div><strong>Uso recomendado</strong><p>Proponer una pieza real, pedir al alumnado que identifique función, fallo posible, propiedad mecánica y ensayo adecuado, y después contrastar su razonamiento con el chatbot.</p></div>
+    </div>
+  </footer>
+
+<script>
+  /*
+    Para activar la IA segura, descomenta y cambia esta línea cuando tengas desplegado el backend:
+    window.METALES_AI_BACKEND = "https://TU-PROYECTO.vercel.app/api/chat-metales";
+    No pongas nunca claves API en este archivo.
+  */
+  const AI_BACKEND_URL = window.METALES_AI_BACKEND || "";
+
+  const sources = {
+    traccion: [
+      ['Universidad de Sevilla · Simulador de tracción','https://grupo.us.es/derematerialia/simulador-del-ensayo-de-traccion/','Curvas de tracción y diversidad de comportamientos.'],
+      ['Junta de Andalucía · Ensayo de tracción','https://edea.juntadeandalucia.es/bancorecursos/file/c845937d-d123-4283-b364-a9301e85b53d/1/es-an_2010091013_9202730.zip/ODE-fcc8d2ad-5785-3486-8acc-c2e39aa234a0/11_ensayo_de_traccin.html?temp.hb=true&temp.hn=true','Explicación educativa de tensión, deformación y gráfica.'],
+      ['UPN · Serie de vídeos sobre ensayos de materiales','https://www.youtube.com/watch?v=qr2_jPz2Ufc','Vídeo educativo indicado para complementar la explicación del ensayo de tracción.'],
+      ['MIT · Stress-Strain Curves','https://web.mit.edu/course/3/3.11/www/modules/ss.pdf','Interpretación universitaria de curvas esfuerzo-deformación.']
+    ],
+    dureza: [
+      ['Universidad de Sevilla · Ensayo de dureza','https://grupo.us.es/derematerialia/el-ensayo-de-dureza/','Brinell, Vickers, penetradores, cargas y condiciones.']
+    ],
+    charpy: [
+      ['UNSW Sydney · Impact testing','https://www.unsw.edu.au/science/our-schools/materials/engage-with-us/high-school-students-and-teachers/online-tutorials/materials-testing/impact-testing','Charpy como medida de energía absorbida en impacto.'],
+      ['Ghent University · Charpy test setup','https://www.ugent.be/ea/emsme/en/services/soete/cases-testequipment/soete-charpy','Principio de funcionamiento y datos reportados.']
+    ]
+  };
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  function num(id){ return parseFloat(document.getElementById(id).value.replace(',', '.')); }
+  function safe(n){ return Number.isFinite(n); }
+  function calcTraccion(){
+    const F=num('fN'), S=num('s0'), dL=num('dL'), L=num('l0');
+    if(!safe(F)||!safe(S)||!safe(dL)||!safe(L)||S<=0||L<=0){document.getElementById('rTraccion').textContent='Revisa los datos.';return;}
+    const sigma=F/S; const eps=dL/L; document.getElementById('rTraccion').innerHTML=`σ = ${sigma.toFixed(2)} MPa<br>ε = ${eps.toFixed(4)} = ${(eps*100).toFixed(2)} %`;
+  }
+  function calcBrinell(){
+    const F=num('bF'), D=num('bD'), d=num('bd');
+    if(!safe(F)||!safe(D)||!safe(d)||D<=0||d<=0||d>=D){document.getElementById('rBrinell').textContent='Revisa: d debe ser menor que D.';return;}
+    const hb=2*F/(Math.PI*D*(D-Math.sqrt(D*D-d*d))); document.getElementById('rBrinell').textContent=`HBW ≈ ${hb.toFixed(1)}`;
+  }
+  function calcVickers(){
+    const F=num('vF'), d=num('vd');
+    if(!safe(F)||!safe(d)||d<=0){document.getElementById('rVickers').textContent='Revisa los datos.';return;}
+    const hv=1.8544*F/(d*d); document.getElementById('rVickers').textContent=`HV ≈ ${hv.toFixed(1)}`;
+  }
+  function calcCharpy(){
+    const E=num('cE'), A=num('cA');
+    if(!safe(E)||!safe(A)||A<=0){document.getElementById('rCharpy').textContent='Revisa los datos.';return;}
+    document.getElementById('rCharpy').innerHTML=`K ≈ ${(E/A).toFixed(1)} J/cm²<br><span class="small">Energía absorbida: ${E.toFixed(1)} J</span>`;
+  }
+
+  const chatbox = document.getElementById('chatbox');
+  const generatedList = document.getElementById('generatedList');
+  const savedQuestions = JSON.parse(localStorage.getItem('metalQuestions') || '[]');
+  savedQuestions.forEach(addGeneratedItem);
+
+  function addMsg(html, cls='bot'){
+    const div=document.createElement('div'); div.className='msg '+cls; div.innerHTML=html; chatbox.appendChild(div); chatbox.scrollTop=chatbox.scrollHeight;
+  }
+  function clearChat(){ chatbox.innerHTML=''; addMsg('<h4>Chatbot listo</h4><p>Plantea una pieza, una propiedad o un ensayo. Responderé siguiendo una cadena de razonamiento: función → fallo posible → propiedad → ensayo.</p>'); }
+  function useQuick(el){ document.getElementById('userQuestion').value = el.textContent; sendQuestion(); }
+  function askPreset(q){ document.getElementById('userQuestion').value=q; location.hash='chatbot'; sendQuestion(); }
+
+  function detect(q){
+    const t = q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const has = words => words.some(w => t.includes(w));
+    let category='general', ensayo='tracción', propiedad='resistencia mecánica y ductilidad', fallo='rotura o deformación permanente', why='La pieza parece necesitar soportar cargas sin fallar.';
+    let sourceKey='traccion';
+
+    if(has(['golpe','impacto','choque','frio','baja temperatura','fragil','fractura fragil','resiliencia','tenacidad','charpy','martillo','parachoques','defensa'])){category='impacto'; ensayo='Charpy'; propiedad='tenacidad o resiliencia'; fallo='fractura frágil ante una carga brusca'; why='El caso menciona golpes, impacto, frío o fragilidad; por tanto, la pregunta clave es cuánta energía puede absorber el material antes de romper.'; sourceKey='charpy';}
+    if(has(['dureza','desgaste','rayado','rozamiento','capa','superficial','engranaje','rodamiento','herramienta','corte','cuchilla','brinell','vickers'])){category='dureza'; ensayo= has(['capa','superficial','delgada','vickers','micro']) ? 'Vickers' : 'Brinell o Vickers'; propiedad='dureza y resistencia al desgaste'; fallo='marcado, penetración o pérdida de material en la superficie'; why='El problema está en la superficie: contacto, rayado o desgaste. Conviene medir la resistencia a la penetración.'; sourceKey='dureza';}
+    if(has(['puente','viga','cable','tornillo','chasis','estructura','barandilla','traccion','carga','peso','deforma','doblar','chapa','ductil','maleable','carroceria','llanta'])){category='traccion'; ensayo='ensayo de tracción'; propiedad= has(['chapa','doblar','carroceria','maleable']) ? 'ductilidad, límite elástico y resistencia' : 'límite elástico, resistencia a tracción y ductilidad'; fallo= has(['chapa','doblar','carroceria','maleable']) ? 'agrietamiento al conformar o deformación no controlada' : 'deformación permanente o rotura por carga'; why='El caso se relaciona con cargas progresivas o con capacidad de deformarse sin romper. La curva tensión-deformación permite ver zona elástica, plastificación y rotura.'; sourceKey='traccion';}
+
+    if(category==='dureza' && has(['golpe','impacto','martillo'])){ensayo='Vickers/Brinell + Charpy'; propiedad='dureza superficial y tenacidad'; fallo='desgaste superficial o rotura frágil por impacto'; why='Hay dos exigencias simultáneas: no marcarse y no romperse al golpear. Por eso no basta un único ensayo.'; sourceKey='charpy';}
+    if(category==='traccion' && has(['rozamiento','desgaste','dureza','llanta'])){ensayo='tracción + dureza, y Charpy si hay golpes'; propiedad='resistencia, ductilidad, dureza y tenacidad'; fallo='deformación, desgaste o fractura por impacto'; why='La función combina cargas, contacto y posibles impactos. La decisión técnica debe comparar varias propiedades, no una sola.'; sourceKey='traccion';}
+    return {category, ensayo, propiedad, fallo, why, sourceKey, raw:t};
+  }
+
+  function buildResponse(q){
+    const d=detect(q);
+    const alternatives = d.ensayo.includes('+') || d.ensayo.includes('y') ? 'Como aparecen varias formas de fallo, conviene combinar ensayos y no decidir solo con un dato.' : 'Ese ensayo es el punto de partida, aunque en un diseño real se completarían más comprobaciones.';
+    const newQs = generateFollowUps(q,d);
+    newQs.forEach(saveGeneratedQuestion);
+    return `<h4>Respuesta razonada</h4>
+      <ol>
+        <li><strong>Función detectada:</strong> la pieza debe cumplir una función asociada a <em>${d.propiedad}</em>.</li>
+        <li><strong>Fallo que intento evitar:</strong> ${d.fallo}.</li>
+        <li><strong>Ensayo recomendado:</strong> ${d.ensayo}.</li>
+        <li><strong>Justificación:</strong> ${d.why} ${alternatives}</li>
+      </ol>
+      <p><strong>Conclusión:</strong> no elegiría el metal solo por “ser fuerte”. Lo elegiría porque la propiedad medida por el ensayo coincide con la función real de la pieza.</p>
+      <p><strong>Nuevas cuestiones para investigar:</strong></p><ul>${newQs.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${buildSources(d.sourceKey)}`;
+  }
+  function buildSources(key){
+    const list = key==='charpy' ? [...sources.charpy, ...sources.traccion] : key==='dureza' ? [...sources.dureza, ...sources.traccion] : sources.traccion;
+    return `<div class="source-card"><strong>Fuentes fiables para contrastar:</strong>${list.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}<small>${s[2]}</small></a>`).join('')}</div>`;
+  }
+  function generateFollowUps(q,d){
+    const base={
+      impacto:['¿Cambiaría la elección si la pieza trabajase a baja temperatura?','¿Un material más duro siempre absorbería más energía en Charpy? Justifica la respuesta.','¿La rotura esperada sería dúctil o frágil? ¿Qué observarías en la probeta?'],
+      dureza:['¿Qué ocurriría si la pieza fuese muy delgada y usásemos Brinell?','¿La dureza garantiza que el material sea tenaz? Razona con un ejemplo.','¿Qué zona de la pieza necesita realmente ser dura: toda la pieza o solo la superficie?'],
+      traccion:['¿Qué punto de la curva usarías para evitar deformación permanente?','¿Por qué interesa que una pieza estructural tenga cierta ductilidad antes de romper?','¿Qué diferencia hay entre resistir mucho y deformarse poco?'],
+      general:['¿Qué función exacta debe cumplir la pieza?','¿Qué fallo sería más peligroso: deformarse, desgastarse o romper de golpe?','¿Qué ensayo mide mejor esa forma de fallo?']
+    };
+    let arr = base[d.category] || base.general;
+    return arr.slice(0,3);
+  }
+  function escapeHTML(s){
+    return String(s).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  }
+  function renderAISources(list){
+    if(!Array.isArray(list) || !list.length) return '';
+    return `<div class="source-card"><strong>Fuentes usadas por la IA segura:</strong>${list.map(s => `<a href="${escapeHTML(s.url || '#')}" target="_blank" rel="noopener">${escapeHTML(s.title || 'Fuente aprobada')}<small>${escapeHTML(s.reason || s.description || 'Fuente revisada por la profesora.')}</small></a>`).join('')}</div>`;
+  }
+  async function askSecureAI(q){
+    const response = await fetch(AI_BACKEND_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ pregunta:q })
+    });
+    if(!response.ok){ throw new Error('Respuesta no válida del backend'); }
+    return await response.json();
+  }
+  async function sendQuestion(){
+    const q=document.getElementById('userQuestion').value.trim();
+    if(!q){ addMsg('<p>Escribe una pregunta o selecciona un ejemplo rápido.</p>'); return; }
+    addMsg(q,'user');
+    document.getElementById('userQuestion').value='';
+
+    if(AI_BACKEND_URL){
+      const waiting=document.createElement('div');
+      waiting.className='msg bot';
+      waiting.innerHTML='<h4>Consultando IA segura</h4><p>Estoy buscando solo en las fuentes aprobadas y preparando una respuesta razonada.</p>';
+      chatbox.appendChild(waiting); chatbox.scrollTop=chatbox.scrollHeight;
+      try{
+        const data=await askSecureAI(q);
+        waiting.remove();
+        const answer = data.answer || data.respuesta || 'No he podido generar una respuesta segura.';
+        addMsg(`<h4>Respuesta de IA segura</h4><p>${escapeHTML(answer).replace(/\n/g,'<br>')}</p>${renderAISources(data.sources || data.fuentes)}`,'bot');
+        if(Array.isArray(data.follow_up_questions)) data.follow_up_questions.forEach(saveGeneratedQuestion);
+        return;
+      }catch(e){
+        waiting.remove();
+        addMsg('<h4>No se pudo contactar con la IA segura</h4><p>Uso la versión local basada en reglas para que la actividad pueda continuar.</p>','bot');
+      }
+    }
+    addMsg(buildResponse(q),'bot');
+  }
+  function generateScenario(){
+    const type=document.getElementById('scenarioType').value;
+    const cases={
+      estructura:'Una empresa debe elegir el metal para una pasarela peatonal. Debe soportar carga sin deformarse y avisar antes de romper. ¿Qué propiedades compararías y qué ensayo usarías?',
+      desgaste:'Se va a fabricar un engranaje que trabaja muchas horas en contacto con otros dientes. ¿Por qué la dureza superficial es importante y qué ensayo elegirías?',
+      impacto:'Una pieza de seguridad recibe golpes bruscos. Dos metales tienen resistencia a tracción parecida. ¿Cómo decidirías cuál es más adecuado?',
+      chapa:'Una chapa debe doblarse para formar una carcasa sin agrietarse. ¿Qué parte de la curva de tracción analizarías?',
+      frio:'Una estructura metálica trabajará en invierno a temperaturas bajas. ¿Por qué tendría sentido hacer Charpy a distintas temperaturas?'
+    };
+    const q=cases[type]; saveGeneratedQuestion(q); document.getElementById('userQuestion').value=q;
+  }
+  function saveGeneratedQuestion(q){
+    const list=JSON.parse(localStorage.getItem('metalQuestions') || '[]');
+    if(!list.includes(q)){ list.unshift(q); localStorage.setItem('metalQuestions', JSON.stringify(list.slice(0,25))); addGeneratedItem(q); }
+  }
+  function addGeneratedItem(q){
+    const li=document.createElement('li'); li.innerHTML=`<a href="#chatbot" onclick="askPreset('${q.replace(/'/g,"&#39;")}')">${q}</a>`; generatedList.prepend(li);
+  }
+
+  clearChat(); calcTraccion(); calcBrinell(); calcVickers(); calcCharpy();
+</script>
+</body>
+</html>
