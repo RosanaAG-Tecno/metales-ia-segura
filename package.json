@@ -1,16 +1,12 @@
 {
-  "name": "metales-ia-segura",
+  "name": "metales-ia-segura-netlify",
   "version": "1.0.0",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vercel dev",
-    "deploy": "vercel --prod"
+    "dev": "netlify dev"
   },
   "engines": {
     "node": ">=20"
-  },
-  "devDependencies": {
-    "vercel": "latest"
   }
 }

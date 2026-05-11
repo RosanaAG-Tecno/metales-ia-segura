@@ -118,81 +118,32 @@
             </div>
           </div>
           <div class="curve-box" aria-label="Curva tensión deformación de un material dúctil">
-            <svg class="curve-svg" viewBox="0 0 900 560" role="img" aria-label="Esquema didáctico original de la curva de tracción">
+            <svg class="curve-svg" viewBox="0 0 840 540" role="img">
               <defs>
-                <marker id="arrDark" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker>
-                <marker id="arrSoft" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#111827"/></marker>
+                <marker id="arrowGray" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#737373"/></marker>
               </defs>
-
-              <rect x="18" y="18" width="864" height="524" rx="20" fill="#ffffff" stroke="#d9e1ef"/>
-              <text x="450" y="46" text-anchor="middle" class="label" style="font-size:24px">Curva tensión-deformación del ensayo de tracción</text>
-              <text x="450" y="70" text-anchor="middle" class="label2" style="font-size:15px">Esquema original propio · representación simplificada de un metal dúctil</text>
-
-              <rect x="95" y="112" width="180" height="338" fill="#dbeafe" opacity="0.65"/>
-              <rect x="275" y="112" width="285" height="338" fill="#dcfce7" opacity="0.55"/>
-              <rect x="560" y="112" width="165" height="338" fill="#fef3c7" opacity="0.65"/>
-              <rect x="725" y="112" width="95" height="338" fill="#fee2e2" opacity="0.72"/>
-
-              <line x1="95" y1="450" x2="810" y2="450" class="axis" marker-end="url(#arrDark)"/>
-              <line x1="95" y1="450" x2="95" y2="90" class="axis" marker-end="url(#arrDark)"/>
-              <text x="438" y="495" class="label">Deformación, ε</text>
-              <text x="33" y="285" class="label" transform="rotate(-90 33,285)">Tensión, σ</text>
-
-              <g>
-                <line x1="95" y1="390" x2="800" y2="390" class="gridline"/>
-                <line x1="95" y1="330" x2="800" y2="330" class="gridline"/>
-                <line x1="95" y1="270" x2="800" y2="270" class="gridline"/>
-                <line x1="95" y1="210" x2="800" y2="210" class="gridline"/>
-                <line x1="185" y1="450" x2="185" y2="112" class="gridline"/>
-                <line x1="275" y1="450" x2="275" y2="112" class="gridline"/>
-                <line x1="365" y1="450" x2="365" y2="112" class="gridline"/>
-                <line x1="455" y1="450" x2="455" y2="112" class="gridline"/>
-                <line x1="545" y1="450" x2="545" y2="112" class="gridline"/>
-                <line x1="635" y1="450" x2="635" y2="112" class="gridline"/>
-                <line x1="725" y1="450" x2="725" y2="112" class="gridline"/>
-              </g>
-
-              <text x="185" y="98" text-anchor="middle" class="label2">Comportamiento elástico</text>
-              <text x="418" y="98" text-anchor="middle" class="label2">Fluencia y deformación plástica</text>
-              <text x="642" y="98" text-anchor="middle" class="label2">Endurecimiento</text>
-              <text x="772" y="98" text-anchor="middle" class="label2">Estricción y rotura</text>
-
-              <path d="M95 450 L230 215 C238 202,250 201,258 208 C268 219,284 216,308 200 C360 166,420 132,495 128 C548 129,602 146,660 180 C705 206,735 220,770 242" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M258 208 C360 152,452 106,538 90 C620 74,694 56,778 42" class="true-curve"/>
-              <text x="682" y="56" class="label2">Curva real</text>
-
-              <circle cx="230" cy="215" r="6" fill="#0f172a"/>
-              <circle cx="258" cy="208" r="6" fill="#0f172a"/>
-              <circle cx="495" cy="128" r="6" fill="#0f172a"/>
-              <circle cx="770" cy="242" r="6" fill="#0f172a"/>
-
-              <line x1="230" y1="215" x2="170" y2="215" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
-              <rect x="104" y="175" width="126" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/>
-              <text x="114" y="194" class="label2">Límite proporcional</text>
-
-              <line x1="258" y1="208" x2="258" y2="285" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5"/>
-              <line x1="258" y1="285" x2="430" y2="285" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
-              <rect x="434" y="271" width="108" height="28" rx="8" fill="#fff" stroke="#cbd5e1"/>
-              <text x="444" y="290" class="label2">Límite elástico</text>
-
-              <line x1="495" y1="128" x2="495" y2="300" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5"/>
-              <line x1="495" y1="300" x2="700" y2="300" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
-              <rect x="560" y="286" width="160" height="42" rx="8" fill="#fff" stroke="#cbd5e1"/>
-              <text x="572" y="304" class="label2">Resistencia máxima</text>
-              <text x="572" y="320" class="label2">máxima tensión de ingeniería</text>
-
-              <line x1="770" y1="242" x2="800" y2="218" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrSoft)"/>
-              <rect x="704" y="176" width="112" height="32" rx="8" fill="#fff" stroke="#cbd5e1"/>
-              <text x="715" y="196" class="label2">Rotura final</text>
-
-              <line x1="330" y1="80" x2="690" y2="80" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 6" marker-start="url(#arrSoft)" marker-end="url(#arrSoft)"/>
-              <text x="455" y="66" text-anchor="middle" class="label2">Endurecimiento por deformación</text>
-              <text x="678" y="66" class="label2">Estricción</text>
-
-              <text x="450" y="430" text-anchor="middle" class="label2">La curva muestra cómo evoluciona la tensión al aumentar la deformación.</text>
-              <text x="450" y="448" text-anchor="middle" class="label2">Se observan el tramo elástico, la zona plástica, la resistencia máxima y la rotura.</text>
+              <text x="420" y="34" text-anchor="middle" class="label" style="font-size:25px">Curva tensión-deformación de un material dúctil</text>
+              <text x="420" y="58" text-anchor="middle" class="label2" style="font-size:16px">Ejemplo: acero bajo en carbono</text>
+              <line x1="70" y1="480" x2="760" y2="480" class="axis" marker-end="url(#arrow)"/>
+              <line x1="70" y1="480" x2="70" y2="90" class="axis" marker-end="url(#arrow)"/>
+              <text x="415" y="520" class="label">Deformación, ε</text>
+              <text x="26" y="286" class="label" transform="rotate(-90 26,286)">Tensión, σ</text>
+              <path d="M70 480 C110 390,150 300,205 220 C220 198,233 205,240 214 C252 231,273 218,303 195 C360 152,410 115,480 116 C545 118,610 142,690 178" class="curve-shadow"/>
+              <path d="M70 480 C110 390,150 300,205 220 C220 198,233 205,240 214 C252 231,273 218,303 195 C360 152,410 115,480 116 C545 118,610 142,690 178" class="curve"/>
+              <path d="M240 214 C310 168,390 122,480 96 C568 70,637 50,700 30" class="true-curve"/>
+              <text x="653" y="52" class="label2">curva real</text>
+              <line x1="205" y1="220" x2="205" y2="480" class="gridline"/><line x1="480" y1="116" x2="480" y2="480" class="gridline"/><line x1="690" y1="178" x2="690" y2="480" class="gridline"/>
+              <line x1="92" y1="220" x2="205" y2="220" class="gridline" marker-end="url(#arrowGray)"/><text x="94" y="204" class="label">Límite proporcional</text>
+              <line x1="205" y1="286" x2="395" y2="286" class="gridline"/><text x="292" y="270" class="label">Límite elástico</text>
+              <line x1="480" y1="116" x2="480" y2="292" class="gridline"/><line x1="480" y1="292" x2="720" y2="292" class="gridline"/><text x="538" y="276" class="label">Resistencia máxima</text>
+              <line x1="230" y1="82" x2="650" y2="82" stroke="#737373" stroke-dasharray="5 4" marker-start="url(#arrowGray)" marker-end="url(#arrowGray)"/><text x="365" y="68" text-anchor="middle" class="label2">endurecimiento por deformación</text><text x="590" y="68" class="label2">estricción</text>
+              <text x="705" y="172" class="label">Rotura</text>
+              <g class="specimen" transform="translate(155 365)"><rect x="-28" y="-24" width="56" height="26" class="orange-fill"/><rect x="-22" y="2" width="44" height="9" class="orange-fill"/><rect x="-10" y="11" width="20" height="67" class="orange-fill"/><rect x="-25" y="78" width="50" height="11" class="orange-fill"/><rect x="-30" y="89" width="60" height="25" class="orange-fill"/></g>
+              <g class="specimen" transform="translate(325 246)"><rect x="-30" y="-22" width="60" height="26" class="orange-fill"/><rect x="-22" y="4" width="44" height="8" class="orange-fill"/><path d="M-11 12 C-8 35,-7 65,-7 92 L7 92 C7 65,8 35,11 12Z" class="orange-fill"/><rect x="-24" y="92" width="48" height="10" class="orange-fill"/><rect x="-30" y="102" width="60" height="24" class="orange-fill"/></g>
+              <g class="specimen" transform="translate(470 165)"><rect x="-30" y="-22" width="60" height="26" class="orange-fill"/><rect x="-22" y="4" width="44" height="8" class="orange-fill"/><path d="M-10 12 C-13 34,-13 52,-6 70 C-4 77,-4 86,-5 96 L5 96 C4 86,4 77,6 70 C13 52,13 34,10 12Z" class="orange-fill"/><rect x="-24" y="96" width="48" height="10" class="orange-fill"/><rect x="-30" y="106" width="60" height="24" class="orange-fill"/></g>
+              <g class="specimen" transform="translate(780 142)"><rect x="-30" y="-22" width="60" height="26" class="orange-fill"/><rect x="-22" y="4" width="44" height="8" class="orange-fill"/><path d="M-9 12 C-10 28,-8 39,-4 48 C-2 53,-2 59,-7 68 L7 68 C2 59,2 53,4 48 C8 39,10 28,9 12Z" class="orange-fill"/><rect x="-24" y="92" width="48" height="10" class="orange-fill"/><rect x="-30" y="102" width="60" height="24" class="orange-fill"/><line x1="-9" y1="74" x2="9" y2="86" stroke="#c2410c" stroke-width="3"/></g>
             </svg>
-            <p class="note" style="margin-top:10px">Este gráfico es un <strong>rediseño original</strong> realizado expresamente para tu web. Mantiene el sentido didáctico del ensayo de tracción, pero no reutiliza la imagen de internet ni su composición exacta.</p>
           </div>
         </div>
       </article>
@@ -232,7 +183,7 @@
 
     <section id="chatbot">
       <div class="section-title"><span class="badge">4</span><h2>Chatbot competencial: pregunta, razona y genera nuevas cuestiones</h2></div>
-      <div class="notice"><strong>Modo seguro:</strong> la web puede funcionar de dos formas. Si no configuras backend, usa un chatbot didáctico local basado en reglas. Si configuras <code>window.METALES_AI_BACKEND</code>, enviará la pregunta a una función segura externa, sin exponer claves en GitHub Pages, y responderá solo con fuentes aprobadas por la profesora.</div>
+      <div class="notice"><strong>Funcionamiento con Netlify:</strong> la web funciona con un chatbot local si se abre en el ordenador, pero al publicarla en Netlify puede llamar a una función segura interna: <code>/.netlify/functions/chat-metales</code>. Así la clave de OpenAI queda protegida y no aparece en el navegador.</div>
       <div class="chat" style="margin-top:18px">
         <div class="card">
           <h3>Pregunta del alumnado</h3>
@@ -274,7 +225,7 @@
     <section id="fuentes">
       <div class="section-title"><span class="badge">6</span><h2>Fuentes educativas sugeridas</h2></div>
       <div class="grid grid-2">
-        <div class="card"><h3>Para tracción y curva tensión-deformación</h3><div class="source-card"><a href="https://grupo.us.es/derematerialia/simulador-del-ensayo-de-traccion/" target="_blank" rel="noopener">Universidad de Sevilla · Derematerialia: simulador del ensayo de tracción<small>Recurso didáctico sobre curvas de tracción y comportamiento de materiales.</small></a><a href="https://edea.juntadeandalucia.es/bancorecursos/file/c845937d-d123-4283-b364-a9301e85b53d/1/es-an_2010091013_9202730.zip/ODE-fcc8d2ad-5785-3486-8acc-c2e39aa234a0/11_ensayo_de_traccin.html?temp.hb=true&temp.hn=true" target="_blank" rel="noopener">Junta de Andalucía · Ensayo de tracción<small>Material educativo en castellano con explicación de tensión, deformación y gráfica.</small></a><a href="https://www.youtube.com/watch?v=qr2_jPz2Ufc" target="_blank" rel="noopener">UPN · Serie de vídeos sobre ensayos de materiales<small>Vídeo educativo indicado para complementar la explicación del ensayo de tracción.</small></a><a href="https://web.mit.edu/course/3/3.11/www/modules/ss.pdf" target="_blank" rel="noopener">MIT · Stress-Strain Curves<small>Documento universitario sobre interpretación de curvas esfuerzo-deformación.</small></a></div></div>
+        <div class="card"><h3>Para tracción y curva tensión-deformación</h3><div class="source-card"><a href="https://grupo.us.es/derematerialia/simulador-del-ensayo-de-traccion/" target="_blank" rel="noopener">Universidad de Sevilla · Derematerialia: simulador del ensayo de tracción<small>Recurso didáctico sobre curvas de tracción y comportamiento de materiales.</small></a><a href="https://edea.juntadeandalucia.es/bancorecursos/file/c845937d-d123-4283-b364-a9301e85b53d/1/es-an_2010091013_9202730.zip/ODE-fcc8d2ad-5785-3486-8acc-c2e39aa234a0/11_ensayo_de_traccin.html?temp.hb=true&temp.hn=true" target="_blank" rel="noopener">Junta de Andalucía · Ensayo de tracción<small>Material educativo en castellano con explicación de tensión, deformación y gráfica.</small></a><a href="https://web.mit.edu/course/3/3.11/www/modules/ss.pdf" target="_blank" rel="noopener">MIT · Stress-Strain Curves<small>Documento universitario sobre interpretación de curvas esfuerzo-deformación.</small></a></div></div>
         <div class="card"><h3>Para dureza y Charpy</h3><div class="source-card"><a href="https://grupo.us.es/derematerialia/el-ensayo-de-dureza/" target="_blank" rel="noopener">Universidad de Sevilla · Derematerialia: ensayo de dureza<small>Explica Brinell, Vickers y Rockwell, penetradores, cargas y condiciones de ensayo.</small></a><a href="https://www.unsw.edu.au/science/our-schools/materials/engage-with-us/high-school-students-and-teachers/online-tutorials/materials-testing/impact-testing" target="_blank" rel="noopener">UNSW Sydney · Impact testing<small>Recurso para estudiantes y profesorado sobre el ensayo Charpy y la energía absorbida.</small></a><a href="https://www.ugent.be/ea/emsme/en/services/soete/cases-testequipment/soete-charpy" target="_blank" rel="noopener">Ghent University · Charpy test setup<small>Principio de funcionamiento y datos reportados en un ensayo Charpy.</small></a></div></div>
       </div>
     </section>
@@ -282,24 +233,25 @@
 
   <footer class="footer">
     <div class="wrap">
-      <div><strong>Laboratorio competencial de metales</strong><p>Archivo HTML único, preparado para abrir localmente o publicar en GitHub Pages.</p></div>
+      <div><strong>Laboratorio competencial de metales</strong><p>Archivo HTML único, preparado para abrir localmente o publicar en Netlify.</p></div>
       <div><strong>Uso recomendado</strong><p>Proponer una pieza real, pedir al alumnado que identifique función, fallo posible, propiedad mecánica y ensayo adecuado, y después contrastar su razonamiento con el chatbot.</p></div>
     </div>
   </footer>
 
 <script>
   /*
-    Para activar la IA segura, descomenta y cambia esta línea cuando tengas desplegado el backend:
-    window.METALES_AI_BACKEND = "https://TU-PROYECTO.vercel.app/api/chat-metales";
+    IA segura con Netlify Functions.
+    Al publicar en Netlify, esta ruta llama a la función segura:
+    /.netlify/functions/chat-metales
     No pongas nunca claves API en este archivo.
   */
+  window.METALES_AI_BACKEND = "/.netlify/functions/chat-metales";
   const AI_BACKEND_URL = window.METALES_AI_BACKEND || "";
 
   const sources = {
     traccion: [
       ['Universidad de Sevilla · Simulador de tracción','https://grupo.us.es/derematerialia/simulador-del-ensayo-de-traccion/','Curvas de tracción y diversidad de comportamientos.'],
       ['Junta de Andalucía · Ensayo de tracción','https://edea.juntadeandalucia.es/bancorecursos/file/c845937d-d123-4283-b364-a9301e85b53d/1/es-an_2010091013_9202730.zip/ODE-fcc8d2ad-5785-3486-8acc-c2e39aa234a0/11_ensayo_de_traccin.html?temp.hb=true&temp.hn=true','Explicación educativa de tensión, deformación y gráfica.'],
-      ['UPN · Serie de vídeos sobre ensayos de materiales','https://www.youtube.com/watch?v=qr2_jPz2Ufc','Vídeo educativo indicado para complementar la explicación del ensayo de tracción.'],
       ['MIT · Stress-Strain Curves','https://web.mit.edu/course/3/3.11/www/modules/ss.pdf','Interpretación universitaria de curvas esfuerzo-deformación.']
     ],
     dureza: [
